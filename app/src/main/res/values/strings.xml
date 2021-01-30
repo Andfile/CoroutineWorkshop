@@ -2,7 +2,8 @@
     <string name="app_name">CoroutineWorkshop</string>
     <string name="coroutines_run">Coroutines run</string>
     <string name="thread_run">Thread run</string>
-    <string name="upload_images">upload images</string>
+    <string name="upload_images">upload image</string>
     <string name="default_text_value">1</string>
     <string name="amount_of_images_to_upload">Amount of images to upload:</string>
+    <string name="go_to_exercise">Go to Exercise</string>
 </resources>
