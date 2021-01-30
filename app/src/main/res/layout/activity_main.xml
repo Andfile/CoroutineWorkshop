@@ -15,6 +15,7 @@
         android:inputType="number"
         android:maxLength="2"
         android:maxLines="1"
+        android:text="@string/default_text_value"
         app:layout_constraintBottom_toTopOf="@+id/work_duration_txt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

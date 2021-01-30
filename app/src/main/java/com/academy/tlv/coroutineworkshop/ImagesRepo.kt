@@ -15,7 +15,7 @@ class ImagesRepoImpl : ImagesRepo {
 
     override fun uploadImage(num: Int) {
         Log.d(TAG, "upload image:[$num] started")
-        Thread.sleep(2000)
+        Thread.sleep(10000)
         Log.d(TAG, "upload image:[$num] ended")
     }
 
