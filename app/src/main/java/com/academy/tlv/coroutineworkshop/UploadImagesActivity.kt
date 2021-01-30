@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_upload_images.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class UploadImagesActivity : AppCompatActivity() {
 
@@ -23,7 +20,7 @@ class UploadImagesActivity : AppCompatActivity() {
 
     private fun setupViews() {
         run_coroutines_btn.setOnClickListener {
-            coroutineScope.launch {
+            job = coroutineScope.launch {
                 launch {
                     processAndUploadImage()
                 }
@@ -32,13 +29,16 @@ class UploadImagesActivity : AppCompatActivity() {
     }
 
     private suspend fun processAndUploadImage() {
-        enableTheButton(false)
-
-        val id = downScaleImage(1)
-        toast(id)
-        uploadImage(id)
-
-        enableTheButton(true)
+        try {
+            enableTheButton(false)
+            val id = downScaleImage(1)
+            toast(id)
+            uploadImage(id)
+        }finally {
+            withContext(NonCancellable) {
+                enableTheButton(true)
+            }
+        }
     }
 
     private suspend fun downScaleImage(id: Int) = imagesRepo.processImagesDownscale(id)
@@ -60,6 +60,6 @@ class UploadImagesActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        //todo implement cancellation
+        job?.cancel()
     }
 }
