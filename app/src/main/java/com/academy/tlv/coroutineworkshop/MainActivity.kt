@@ -13,7 +13,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupViews()
-        setupViewModel()
     }
 
     private fun setupViews() {
@@ -24,9 +23,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupViewModel() {
-        mainViewModel.duration.observe(this, {
-
-        })
-    }
 }
