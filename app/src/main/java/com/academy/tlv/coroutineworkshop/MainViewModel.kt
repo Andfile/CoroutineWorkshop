@@ -23,6 +23,7 @@ class MainViewModel(private val imageRepo: ImagesRepo = ImagesRepoImpl()) : View
     }
 
     private fun runCoroutines(num: Int) {
+        //todo change to viewmodel scope and try to fix behavior
         coroutineScope.launch(exceptionHandler) {
             repeat(num) {
                 launch(Dispatchers.Default) { imageRepo.uploadImage(it) }
