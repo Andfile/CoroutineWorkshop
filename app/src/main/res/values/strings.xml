@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">CoroutineWorkshop</string>
+    <string name="coroutines_run">Coroutines run</string>
+    <string name="thread_run">Thread run</string>
+    <string name="upload_images">upload images</string>
+</resources>
