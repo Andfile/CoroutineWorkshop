@@ -1,8 +1,6 @@
 package com.academy.tlv.coroutineworkshop
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.asCoroutineDispatcher
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.util.concurrent.Executors
 
 /**
@@ -30,7 +28,7 @@ fun main() {
     }
 }
 
-private fun doSomeWork(num: Int) {
-    Thread.sleep(2000)  //todo switch to delay suspend fun, why? ask mentor if it not clear for you
+private suspend fun doSomeWork(num: Int) = withContext(Dispatchers.Default) {
+    delay(2000)  //todo switch to delay suspend fun, why? ask mentor if it not clear for you
     println("after delay [$num], timeStamp:[${System.currentTimeMillis()}], thread:[${Thread.currentThread().id}]")
 }

@@ -2,17 +2,16 @@ package com.academy.tlv.coroutineworkshop
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.supervisorScope
 
 private const val TAG = "MainViewModel"
 
 class MainViewModel(private val imageRepo: ImagesRepo = ImagesRepoImpl()) : ViewModel() {
 
-    //change the coroutine scope by view model scope
-    private val coroutineScope = CoroutineScope(Dispatchers.Default)
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         Log.e(TAG, "Coroutine exception catch error[${throwable}]")
         throwable.printStackTrace()
@@ -23,9 +22,11 @@ class MainViewModel(private val imageRepo: ImagesRepo = ImagesRepoImpl()) : View
     }
 
     private fun runCoroutines(num: Int) {
-        coroutineScope.launch(exceptionHandler) {
-            repeat(num) {
-                launch(Dispatchers.Default) { imageRepo.uploadImage(it) }
+        viewModelScope.launch(exceptionHandler) {
+            supervisorScope {
+                repeat(num) {
+                    launch(Dispatchers.Default) { imageRepo.uploadImage(it) }
+                }
             }
         }
     }
