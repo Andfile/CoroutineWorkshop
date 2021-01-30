@@ -34,11 +34,16 @@ class UploadImagesActivity : AppCompatActivity() {
     private suspend fun processAndUploadImage() {
         enableTheButton(false)
 
-        val id = imagesRepo.processImagesDownscale(1)
+        val id = downScaleImage(1)
         toast(id)
-        imagesRepo.uploadImage(id)
+        uploadImage(id)
 
         enableTheButton(true)
+    }
+
+    private suspend fun downScaleImage(id: Int) = imagesRepo.processImagesDownscale(id)
+    private suspend fun uploadImage(id: Int) {
+        imagesRepo.uploadImage(id)
     }
 
     private fun enableTheButton(isEnabled: Boolean = true) {
