@@ -32,5 +32,5 @@ fun main() {
 
 private fun doSomeWork(num: Int) {
     Thread.sleep(2000)  //todo switch to delay suspend fun, why? ask mentor if it not clear for you
-    println("after delay [$num], timeStamp:[${System.currentTimeMillis()}], thread:[${Thread.currentThread().id}]")
+    println("do some work delay [$num], timeStamp:[${System.currentTimeMillis()}], thread:[${Thread.currentThread().id}] done")
 }
