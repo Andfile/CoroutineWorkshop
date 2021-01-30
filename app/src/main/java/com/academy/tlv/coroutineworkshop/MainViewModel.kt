@@ -1,25 +1,32 @@
 package com.academy.tlv.coroutineworkshop
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+
+private const val TAG = "MainViewModel"
 
 class MainViewModel(private val imageRepo: ImagesRepo = ImagesRepoImpl()) : ViewModel() {
 
+    //change the coroutine scope by view model scope
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        Log.e(TAG, "Coroutine exception catch error[${throwable}]")
+        throwable.printStackTrace()
+    }
 
     fun runWithCoroutines(num: Int) {
         runCoroutines(num)
     }
 
     private fun runCoroutines(num: Int) {
-        //todo need to implement your first coroutine in this part
-        //todo coroutineScope will help you to launch your first coroutine
-        repeat(num) {
-            val downScaleResult = coroutineScope.async { imageRepo.processImageDownScale(it) }
-            coroutineScope.launch { imageRepo.uploadImage(downScaleResult.await()) }
+        coroutineScope.launch(exceptionHandler) {
+            repeat(num) {
+                launch(Dispatchers.Default) { imageRepo.uploadImage(it) }
+            }
         }
     }
 }
