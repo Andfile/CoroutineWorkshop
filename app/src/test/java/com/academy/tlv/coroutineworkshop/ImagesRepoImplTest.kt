@@ -1,5 +1,7 @@
 package com.academy.tlv.coroutineworkshop
 
+import junit.framework.Assert.assertEquals
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 class ImagesRepoImplTest {
@@ -8,11 +10,10 @@ class ImagesRepoImplTest {
 
     @Test
     fun testForTheImagesRepoDownScaleFun() {
-        //todo fix test
-        /*
-              imagesRepo = ImagesRepoImpl()
-              val processedImageId = imagesRepo.processImageDownScale(4)
-              assertEquals(processedImageId, 8)
-              */
+        imagesRepo = ImagesRepoImpl()
+        val processedImageId = runBlocking {
+            imagesRepo.processImageDownScale(4)
+        }
+        assertEquals(processedImageId, 8)
     }
 }
